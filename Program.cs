@@ -16,11 +16,10 @@ namespace NumberGuesser
             Console.WriteLine("Are you ready? Lets Begin!");
             Console.WriteLine("-----------------------------------------");
         }
-        static string Brag()
+        static void Brag(int randomNumber)
         {
-            Console.WriteLine("MuAhahahaha! I knew I could guess your number!");
+            Console.WriteLine($"MuAhahahaha! I knew your number is {randomNumber}!");
 
-            return "CORRECT";
         }
         static void Main(string[] args)
         {
@@ -60,7 +59,7 @@ namespace NumberGuesser
                         break;
                 }
 
-                Brag();
+                Brag(randomNumber);
 
             }
 
