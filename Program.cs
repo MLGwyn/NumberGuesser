@@ -7,18 +7,27 @@ namespace NumberGuesser
     {
         static void IntroductionToGame()
         {
-            Console.WriteLine("/n");
+            Console.WriteLine();
             Console.WriteLine("-----------------------------------------");
             Console.WriteLine("Hello. Let's play a game.");
-            Console.WriteLine("/n");
+            Console.WriteLine();
             Console.WriteLine("You pick a number between 1 and 1024 and I will guess it. Tell me if my number is HIGHER, LOWER, or CORRECT.");
-            Console.WriteLine("/n");
+            Console.WriteLine();
             Console.WriteLine("Are you ready? Lets Begin!");
             Console.WriteLine("-----------------------------------------");
         }
-        static void Brag(int randomNumber)
+        static int GuessANewNumber(int newLowNumber, int newHighNumber)
         {
-            Console.WriteLine($"MuAhahahaha! I knew your number is {randomNumber}!");
+            var randomNumberGenerator = new Random();
+            var randomNumber = randomNumberGenerator.Next(newLowNumber, newHighNumber);
+            Console.WriteLine($"I will guess between {newLowNumber} and {newHighNumber}. ");
+            randomNumber = randomNumberGenerator.Next(newLowNumber, newHighNumber);
+            Console.Write($"Is your number {randomNumber}? ");
+            return randomNumber;
+        }
+        static void Brag(int aNumber)
+        {
+            Console.WriteLine($"MuAhahahaha! I knew your number is {aNumber}!");
 
         }
         static void Main(string[] args)
@@ -27,11 +36,7 @@ namespace NumberGuesser
 
             var newHighestNumber = 1024;
             var newLowestNumber = 1;
-            var randomNumberGenerator = new Random();
-            var randomNumber = randomNumberGenerator.Next(newLowestNumber, newHighestNumber);
-
-            Console.Write($"Is your number {randomNumber}? ");
-
+            var randomNumber = GuessANewNumber(newLowestNumber, newHighestNumber);
             var userInput = Console.ReadLine();
 
             while (userInput != "CORRECT")
@@ -41,16 +46,12 @@ namespace NumberGuesser
                 {
                     case "HIGHER":
                         newLowestNumber = randomNumber + 1;
-                        Console.WriteLine($"Okay Fine... Next I will guess between {newLowestNumber} and {newHighestNumber}. ");
-                        randomNumber = randomNumberGenerator.Next(newLowestNumber, newHighestNumber);
-                        Console.Write($"Is your number {randomNumber}? ");
+                        randomNumber = GuessANewNumber(newLowestNumber, newHighestNumber);
                         userInput = Console.ReadLine();
                         break;
                     case "LOWER":
                         newHighestNumber = randomNumber - 1;
-                        Console.WriteLine($"Okay Fine... Next I will guess between {newLowestNumber} and {newHighestNumber}. ");
-                        randomNumber = randomNumberGenerator.Next(newLowestNumber, newHighestNumber);
-                        Console.Write($"Is your number {randomNumber}? ");
+                        randomNumber = GuessANewNumber(newLowestNumber, newHighestNumber);
                         userInput = Console.ReadLine();
                         break;
                     default:
@@ -58,10 +59,9 @@ namespace NumberGuesser
                         userInput = Console.ReadLine();
                         break;
                 }
-
-                Brag(randomNumber);
-
             }
+
+            Brag(randomNumber);
 
 
 
